@@ -3,24 +3,27 @@
 using PetStore;
 using System.Text.Json;
 
-string userInput;
-Console.WriteLine("Press 1 to add a product.");
-Console.WriteLine("Type 'exit' to quit.");
-userInput = Console.ReadLine();
+var productLogic = new ProductLogic();
 
-while (userInput.ToLower() != "exit") {
+string userInput = PrintMenu();
+
+while (!userInput.Equals("exit", StringComparison.CurrentCultureIgnoreCase)) {
     if (userInput == "1") {
         Console.WriteLine("Adding a Dog Leash.");
-        var dogLeash = new DogLeash
-        {
-            Name = "Dog Leash",
-            Price = 24.95M,
-            Description = "It's a leash. What more do you want to know?"
-        };
+        var dogLeash = new DogLeash();
 
-        Console.Write($"How many {dogLeash.Name}s do you want? ");
+        Console.Write($"Enter the Quantity: ");
+        dogLeash.Quantity = int.Parse(Console.ReadLine());
+
+        Console.Write("Enter the Name: ");
+        dogLeash.Name = Console.ReadLine(); 
+
+        Console.Write("Enter the Price: ");
         userInput = Console.ReadLine();
-        dogLeash.Quantity = int.Parse(userInput);
+        dogLeash.Price = decimal.Parse(userInput);
+
+        Console.Write("Enter the Description: ");
+        dogLeash.Description = Console.ReadLine();
 
         Console.Write("Enter the length in inches: ");
         userInput = Console.ReadLine();
@@ -29,10 +32,25 @@ while (userInput.ToLower() != "exit") {
         Console.Write("Enter the meterial of the leash: ");
         dogLeash.Material = Console.ReadLine();
 
-        Console.WriteLine(JsonSerializer.Serialize(dogLeash));
+        productLogic.AddProduct(dogLeash);
+        Console.WriteLine($"Added {dogLeash.Name} to inventory.");
+    } 
+    else if (userInput == "2") 
+    {
+        //TODO: prompt user for leash name, and get/print the leash
+        Console.Write("Which leash would you like to see? ");
+        userInput = Console.ReadLine();
+        var leash = productLogic.GetDogLeashByName(userInput);
+        Console.WriteLine(JsonSerializer.Serialize( leash ));
     }
 
-    Console.WriteLine("Press 1 to add a product.");
-    Console.WriteLine("Type 'exit' to quit.");
-    userInput = Console.ReadLine();
+    userInput = PrintMenu();
 };
+
+static string PrintMenu()
+{
+    Console.WriteLine("Press 1 to add a product.");
+    Console.WriteLine("Press 2 to retrieve a specific dog leash.");
+    Console.WriteLine("Type 'exit' to quit.");
+    return Console.ReadLine();
+}
