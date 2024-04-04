@@ -41,7 +41,14 @@ while (!userInput.Equals("exit", StringComparison.CurrentCultureIgnoreCase)) {
         Console.Write("Which leash would you like to see? ");
         userInput = Console.ReadLine();
         var leash = productLogic.GetDogLeashByName(userInput);
-        Console.WriteLine(JsonSerializer.Serialize( leash ));
+        if (leash is null)
+        {
+            Console.WriteLine($"Product {userInput} not found.");
+        }
+        else
+        {
+            Console.WriteLine(JsonSerializer.Serialize(leash));
+        }
     }
 
     userInput = PrintMenu();
