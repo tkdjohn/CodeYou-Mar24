@@ -3,9 +3,9 @@
 
     internal class ProductLogic
     {
-        private List<Product> _products = new();
-        private Dictionary<string, DogLeash> _dogLeashes = new();
-        private Dictionary<string, CatFood>  _catFoods = new();
+        private List<Product> _products = [];
+        private readonly Dictionary<string, DogLeash> _dogLeashes = [];
+        private readonly Dictionary<string, CatFood> _catFoods = [];
 
 
 
