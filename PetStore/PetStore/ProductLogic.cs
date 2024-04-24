@@ -46,5 +46,10 @@
                 return null; 
             }
         }
+
+        public string GetCostPerUnit(ICostPerUnit productWithCostPerUnit)
+        {
+            return $"{productWithCostPerUnit.CostPerUnit} per {productWithCostPerUnit.Unit}";
+        }
     }
 }

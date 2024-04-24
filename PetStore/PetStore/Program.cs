@@ -34,8 +34,7 @@ while (!userInput.Equals("exit", StringComparison.CurrentCultureIgnoreCase)) {
 
         productLogic.AddProduct(dogLeash);
         Console.WriteLine($"Added {dogLeash.Name} to inventory.");
-    } 
-    else if (userInput == "2") 
+    } else if (userInput == "2") 
     {
         //TODO: prompt user for leash name, and get/print the leash
         Console.Write("Which leash would you like to see? ");
@@ -49,10 +48,16 @@ while (!userInput.Equals("exit", StringComparison.CurrentCultureIgnoreCase)) {
         {
             Console.WriteLine(JsonSerializer.Serialize(leash));
         }
+    } else if (userInput == "3")
+    {
+        ///.... get dog leash name etc
+        ///
+        productLogic.GetCostPerUnit(productLogic.GetDogLeashByName(userInput));
     }
-
     userInput = PrintMenu();
-};
+}
+
+
 
 static string PrintMenu()
 {
